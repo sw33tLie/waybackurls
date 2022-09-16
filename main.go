@@ -6,6 +6,7 @@ import (
 	"flag"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"net/url"
 	"os"
@@ -134,6 +135,7 @@ func getWaybackURLs(domain string, noSubs bool) ([]wurl, error) {
 		fmt.Sprintf("http://web.archive.org/cdx/search/cdx?url=%s%s/*&output=json&collapse=urlkey", subsWildcard, domain),
 	)
 	if err != nil {
+		log.Fatal("ERR 1", err)
 		return []wurl{}, err
 	}
 
@@ -262,6 +264,8 @@ func getVersions(u string) ([]string, error) {
 	))
 
 	if err != nil {
+		log.Fatal("ERR 2", err)
+
 		return out, err
 	}
 	defer resp.Body.Close()
